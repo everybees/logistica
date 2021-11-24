@@ -1,0 +1,1 @@
+web: gunicorn logisticaa.wsgi --log-file -
