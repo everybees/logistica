@@ -28,7 +28,6 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 # False if not in os.environ because of casting above
 DEBUG = env('DEBUG')
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
@@ -36,7 +35,6 @@ DEBUG = env('DEBUG')
 SECRET_KEY = env('SECRET_KEY')
 
 ALLOWED_HOSTS = ['logisticaa.herokuapp.com']
-
 
 # Application definition
 
@@ -53,6 +51,8 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.runserver_nostatic',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -83,7 +83,6 @@ WSGI_APPLICATION = 'logistica.wsgi.application'
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
@@ -95,16 +94,15 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # }
 
 DATABASES = {
-   'default': {
-       'ENGINE': 'django.db.backends.postgresql',
-       'NAME': env('DB_NAME'),
-       'USER': env('DB_USER'),
-       'PASSWORD': env('DB_PASSWORD'),
-       'HOST': '127.0.0.1',
-       'PORT': '5432',
-   }
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': env('DB_NAME'),
+        'USER': env('DB_USER'),
+        'PASSWORD': env('DB_PASSWORD'),
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
+    }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -124,7 +122,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
@@ -138,7 +135,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
@@ -150,10 +146,10 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # location where django collect all static files
-STATIC_ROOT = os.path.join(BASE_DIR,'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 # location where you will store your static files
-STATICFILES_DIRS = [os.path.join(BASE_DIR,'project_name/static')
-]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'project_name/static')
+                    ]
 
-MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
