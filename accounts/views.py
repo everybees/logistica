@@ -53,10 +53,9 @@ class AccountsViewSet(viewsets.ViewSet):
             return Response({"detail": "Account with this email does not exist"}, status=status.HTTP_404_NOT_FOUND)
 
     @action(detail=False)
-    def view_profile(self, request):
+    def profile(self, request):
         try:
-            payload = request.data
-            email = payload.get('email')
+            email = request.query_params.get('email')
             obj = Account.objects.get(email=email)
             serializer = AccountsSerializer(obj)
             return Response(serializer.data, status=status.HTTP_200_OK)
